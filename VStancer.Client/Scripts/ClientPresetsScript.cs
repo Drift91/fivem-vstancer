@@ -2,11 +2,11 @@
 
 using VStancer.Client.Menus;
 
-using CitizenFX.Core.UI;
+using CitizenFX.FiveM.GUI;
 using VStancer.Client.Preset;
 using System.Collections.Generic;
 using CitizenFX.Core;
-using static CitizenFX.Core.Native.API;
+using static CitizenFX.FiveM.Native.Natives;
 using System.Linq;
 
 namespace VStancer.Client.Scripts
@@ -61,7 +61,7 @@ namespace VStancer.Client.Scripts
             }
         }
 
-        internal async Task<string> GetPresetNameFromUser(string title, string defaultText)
+        internal async Coroutine<string> GetPresetNameFromUser(string title, string defaultText)
         {
             return await _mainScript.GetOnScreenString(title, defaultText);
         }

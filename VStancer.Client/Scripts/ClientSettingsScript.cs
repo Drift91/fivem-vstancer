@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VStancer.Client.Menus;
 
-using static CitizenFX.Core.Native.API;
+using static CitizenFX.FiveM.Native.Natives;
 
 namespace VStancer.Client.Scripts
 {

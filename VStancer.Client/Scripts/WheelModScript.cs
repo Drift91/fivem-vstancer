@@ -9,7 +9,7 @@ using VStancer.Client.Preset;
 using VStancer.Client.Menus;
 
 using CitizenFX.Core;
-using static CitizenFX.Core.Native.API;
+using static CitizenFX.FiveM.Native.Natives;
 
 namespace VStancer.Client.Scripts
 {
@@ -75,7 +75,7 @@ namespace VStancer.Client.Scripts
         internal const string DefaultRearTireColliderSizeID = "vstancer_wheelmod_tirecollider_size_r_def";
         internal const string DefaultRearRimColliderSizeID = "vstancer_wheelmod_rimcollider_size_r_def";
 
-        public event EventHandler WheelModDataChanged;
+        public event System.EventHandler WheelModDataChanged;
 
         internal WheelModScript(MainScript mainScript)
         {
@@ -107,7 +107,7 @@ namespace VStancer.Client.Scripts
             PlayerVehicleChanged(_mainScript.PlayerVehicleHandle);
         }
 
-        //private async Task TickTask()
+        //private async Coroutine TickTask()
         //{
         //    await Task.FromResult(0);
         //
@@ -117,7 +117,7 @@ namespace VStancer.Client.Scripts
         //    UpdateVehicleUsingData(_playerVehicleHandle, WheelModData);
         //}
 
-        private async Task GetVehicleWheelModTask()
+        private async Coroutine GetVehicleWheelModTask()
         {
             if (_playerVehicleHandle == -1)
                 return;
@@ -172,7 +172,7 @@ namespace VStancer.Client.Scripts
             Tick += GetVehicleWheelModTask;
         }
 
-        private async Task TimedTask()
+        private async Coroutine TimedTask()
         {
             long currentTime = (GetGameTimer() - _lastTime);
 
@@ -223,7 +223,7 @@ namespace VStancer.Client.Scripts
             }
         }
 
-        private async Task<WheelModData> GetWheelModDataFromEntity(int vehicle)
+        private async Coroutine<WheelModData> GetWheelModDataFromEntity(int vehicle)
         {
             if (!DoesEntityExist(vehicle))
                 return null;
@@ -738,7 +738,7 @@ namespace VStancer.Client.Scripts
             return new WheelModPreset(WheelModData);
         }
 
-        internal async Task SetWheelModPreset(WheelModPreset preset, bool ignoreEmptyPresets = true)
+        internal async Coroutine SetWheelModPreset(WheelModPreset preset, bool ignoreEmptyPresets = true)
         {
             if (!DataIsValid)
                 return;

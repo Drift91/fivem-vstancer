@@ -1,4 +1,4 @@
-﻿using CitizenFX.Core.UI;
+﻿using CitizenFX.FiveM.GUI;
 using MenuAPI;
 
 namespace VStancer.Client.Menus

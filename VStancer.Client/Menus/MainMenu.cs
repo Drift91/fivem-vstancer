@@ -1,6 +1,6 @@
 ﻿using System;
 using CitizenFX.Core;
-using static CitizenFX.Core.Native.API;
+using static CitizenFX.FiveM.Native.Natives;
 using static VStancer.Client.Menus.MenuUtilities;
 using MenuAPI;
 using VStancer.Client.Scripts;
@@ -28,7 +28,7 @@ namespace VStancer.Client.Menus
         {
             _script = script;
 
-            _script.ToggleMenuVisibility += new EventHandler((sender, args) =>
+            _script.ToggleMenuVisibility += new System.EventHandler((sender, args) =>
             {
                 var currentMenu = MenuController.MainMenu;
 
@@ -39,7 +39,7 @@ namespace VStancer.Client.Menus
             });
 
             MenuController.MenuAlignment = MenuController.MenuAlignmentOption.Right;
-            MenuController.MenuToggleKey = (Control)_script.Config.ToggleMenuControl;
+            MenuController.MenuToggleKey = (CitizenFX.FiveM.Control)_script.Config.ToggleMenuControl;
             MenuController.EnableMenuToggleKeyOnController = false;
             MenuController.DontOpenAnyMenu = true;
             MenuController.MainMenu = this;

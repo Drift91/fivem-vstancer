@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using VStancer.Client.Data;
 using VStancer.Client.Preset;
 using VStancer.Client.Menus;
-using static CitizenFX.Core.Native.API;
+using static CitizenFX.FiveM.Native.Natives;
 
 namespace VStancer.Client.Scripts
 {
@@ -40,7 +40,7 @@ namespace VStancer.Client.Scripts
         internal const string VisualHeightID = "vstancer_suspensions_visualheight";
         internal const string DefaultVisualHeightID = "vstancer_suspensions_visualheight_def";
 
-        public event EventHandler SuspensionDataChanged;
+        public event System.EventHandler SuspensionDataChanged;
 
         internal SuspensionScript(MainScript mainScript)
         {
@@ -91,7 +91,7 @@ namespace VStancer.Client.Scripts
             SuspensionData = GetSuspensionDataFromEntity(vehicle);
         }
 
-        private async Task TimedTask()
+        private async Coroutine TimedTask()
         {
             long currentTime = (GetGameTimer() - _lastTime);
 
@@ -270,7 +270,7 @@ namespace VStancer.Client.Scripts
             return new SuspensionPreset(SuspensionData);
         }
 
-        internal async Task SetSuspensionPreset(SuspensionPreset preset, bool ignoreEmptyPresets = true)
+        internal async Coroutine SetSuspensionPreset(SuspensionPreset preset, bool ignoreEmptyPresets = true)
         {
             if (!DataIsValid)
                 return;

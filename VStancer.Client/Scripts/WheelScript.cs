@@ -9,7 +9,7 @@ using VStancer.Client.Preset;
 using VStancer.Client.Menus;
 
 using CitizenFX.Core;
-using static CitizenFX.Core.Native.API;
+using static CitizenFX.FiveM.Native.Natives;
 
 namespace VStancer.Client.Scripts
 {
@@ -51,7 +51,7 @@ namespace VStancer.Client.Scripts
 
         internal const string ResetID = "vstancer_reset";
 
-        internal event EventHandler WheelDataChanged;
+        internal event System.EventHandler WheelDataChanged;
 
         internal WheelScript(MainScript mainScript)
         {
@@ -107,7 +107,7 @@ namespace VStancer.Client.Scripts
             Tick += UpdatePlayerVehicleTask;
         }
 
-        private async Task UpdatePlayerVehicleTask()
+        private async Coroutine UpdatePlayerVehicleTask()
         {
             await Task.FromResult(0);
 
@@ -116,7 +116,7 @@ namespace VStancer.Client.Scripts
                 UpdateVehicleUsingWheelData(_playerVehicleHandle, WheelData);
         }
 
-        private async Task UpdateWorldVehiclesTask()
+        private async Coroutine UpdateWorldVehiclesTask()
         {
             await Task.FromResult(0);
 
@@ -129,7 +129,7 @@ namespace VStancer.Client.Scripts
             }
         }
 
-        //private async Task TimedTask()
+        //private async Coroutine TimedTask()
         //{
         //    long currentTime = (GetGameTimer() - _lastTime);
         //
@@ -499,7 +499,7 @@ namespace VStancer.Client.Scripts
             return new WheelPreset(WheelData);
         }
 
-        internal async Task SetWheelPreset(WheelPreset preset, bool ignoreEmptyPresets = true)
+        internal async Coroutine SetWheelPreset(WheelPreset preset, bool ignoreEmptyPresets = true)
         {
             if (!DataIsValid)
                 return;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using static CitizenFX.Core.Native.API;
+using static CitizenFX.FiveM.Native.Natives;
 using Newtonsoft.Json;
 using System.Linq;
 

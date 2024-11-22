@@ -1,7 +1,7 @@
 ﻿using System;
 using MenuAPI;
-using CitizenFX.Core;
-using static CitizenFX.Core.Native.API;
+using CitizenFX.FiveM;
+using static CitizenFX.FiveM.Native.Natives;
 using VStancer.Client.Scripts;
 
 namespace VStancer.Client.Menus
@@ -14,7 +14,7 @@ namespace VStancer.Client.Menus
         {
             _script = script;
 
-            _script.Presets.PresetsCollectionChanged += new EventHandler((sender, args) => Update());
+            _script.Presets.PresetsCollectionChanged += new System.EventHandler((sender, args) => Update());
 
             Update();
 

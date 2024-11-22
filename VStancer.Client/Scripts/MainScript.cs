@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using VStancer.Client.Menus;
 
 using CitizenFX.Core;
-using static CitizenFX.Core.Native.API;
+using static CitizenFX.FiveM.Native.Natives;
 using Newtonsoft.Json;
 using VStancer.Client.Preset;
 using System.Linq;
@@ -52,7 +52,7 @@ namespace VStancer.Client.Scripts
         internal event EventHandler<int> PlayerVehicleHandleChanged;
         internal event EventHandler<int> PlayerPedHandleChanged;
 
-        internal event EventHandler ToggleMenuVisibility;
+        internal event System.EventHandler ToggleMenuVisibility;
 
         internal Config Config { get; private set; }
         internal WheelScript WheelScript { get; private set; }
@@ -111,24 +111,24 @@ namespace VStancer.Client.Scripts
 
             RegisterCommands();
 
-            Exports.Add("SetWheelPreset", new Func<int, float, float, float, float, bool>(SetWheelPreset));
-            Exports.Add("GetWheelPreset", new Func<int, float[]>(GetWheelPreset));
-            Exports.Add("ResetWheelPreset", new Func<int, bool>(ResetWheelPreset));
+            Exports.Add("SetWheelPreset", Func.Create<int, float, float, float, float, bool>(SetWheelPreset));
+            Exports.Add("GetWheelPreset", Func.Create<int, float[]>(GetWheelPreset));
+            Exports.Add("ResetWheelPreset", Func.Create<int, bool>(ResetWheelPreset));
 
-            Exports.Add("SetFrontCamber", new Func<int, float, bool>(SetFrontCamber));
-            Exports.Add("SetRearCamber", new Func<int, float, bool>(SetRearCamber));
-            Exports.Add("SetFrontTrackWidth", new Func<int, float, bool>(SetFrontTrackWidth));
-            Exports.Add("SetRearTrackWidth", new Func<int, float, bool>(SetRearTrackWidth));
+            Exports.Add("SetFrontCamber", Func.Create<int, float, bool>(SetFrontCamber));
+            Exports.Add("SetRearCamber", Func.Create<int, float, bool>(SetRearCamber));
+            Exports.Add("SetFrontTrackWidth", Func.Create<int, float, bool>(SetFrontTrackWidth));
+            Exports.Add("SetRearTrackWidth", Func.Create<int, float, bool>(SetRearTrackWidth));
 
-            Exports.Add("GetFrontCamber", new Func<int, float[]>(GetFrontCamber));
-            Exports.Add("GetRearCamber", new Func<int, float[]>(GetRearCamber));
-            Exports.Add("GetFrontTrackWidth", new Func<int, float[]>(GetFrontTrackWidth));
-            Exports.Add("GetRearTrackWidth", new Func<int, float[]>(GetRearTrackWidth));
+            Exports.Add("GetFrontCamber", Func.Create<int, float[]>(GetFrontCamber));
+            Exports.Add("GetRearCamber", Func.Create<int, float[]>(GetRearCamber));
+            Exports.Add("GetFrontTrackWidth", Func.Create<int, float[]>(GetFrontTrackWidth));
+            Exports.Add("GetRearTrackWidth", Func.Create<int, float[]>(GetRearTrackWidth));
 
-            Exports.Add("SaveClientPreset", new Func<string, int, bool>(SaveClientPreset));
-            Exports.Add("LoadClientPreset", new Func<string, int, bool>(LoadClientPreset));
-            Exports.Add("DeleteClientPreset", new Func<string, bool>(DeleteClientPreset));
-            Exports.Add("GetClientPresetList", new Func<string[]>(GetClientPresetList));
+            Exports.Add("SaveClientPreset", Func.Create<string, int, bool>(SaveClientPreset));
+            Exports.Add("LoadClientPreset", Func.Create<string, int, bool>(LoadClientPreset));
+            Exports.Add("DeleteClientPreset", Func.Create<string, bool>(DeleteClientPreset));
+            Exports.Add("GetClientPresetList", Func.Create<string[]>(GetClientPresetList));
         }
 
         private void OnClientSettingsPropertyChanged(object sender, string name)
@@ -161,7 +161,7 @@ namespace VStancer.Client.Scripts
             return closeVehicles;
         }
 
-        private async Task TimedTask()
+        private async Coroutine TimedTask()
         {
             long currentTime = GetGameTimer() - _lastTime;
 
@@ -177,7 +177,7 @@ namespace VStancer.Client.Scripts
             await Task.FromResult(0);
         }
 
-        private async Task GetPlayerAndVehicleTask()
+        private async Coroutine GetPlayerAndVehicleTask()
         {
             await Task.FromResult(0);
 
@@ -223,7 +223,7 @@ namespace VStancer.Client.Scripts
             return config;
         }
 
-        public async Task<string> GetOnScreenString(string title, string defaultText)
+        public async Coroutine<string> GetOnScreenString(string title, string defaultText)
         {
             DisplayOnscreenKeyboard(1, title, "", defaultText, "", "", "", 128);
             while (UpdateOnscreenKeyboard() != 1 && UpdateOnscreenKeyboard() != 2) await Delay(100);
@@ -317,7 +317,7 @@ namespace VStancer.Client.Scripts
                     RegisterCommand("vstancer", new Action<int, dynamic>((source, args) => { ToggleMenuVisibility?.Invoke(this, EventArgs.Empty); }), false);
 
                 if (Config.ExposeEvent)
-                    EventHandlers.Add("vstancer:toggleMenu", new Action(() => { ToggleMenuVisibility?.Invoke(this, EventArgs.Empty); }));
+                    EventHandlers.Add("vstancer:toggleMenu", Func.Create(() => { ToggleMenuVisibility?.Invoke(this, EventArgs.Empty); }));
             }
         }
 
